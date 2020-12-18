@@ -10,9 +10,7 @@ from skimage.segmentation import mark_boundaries
 from skimage.segmentation import slic
 from skimage.util import img_as_float
 
-input_test_file = '/Users/Jagan/Desktop/XAI_Tool_Project/test_files/ImageSegmentation-n25.csv'
-#input_test_file = '/Users/Jagan/Desktop/XAI_Tool_Project/test_files/ImageSegmentation-n20.csv'
-#input_test_file = '/Users/Jagan/Desktop/BEN_n25/core_dervied_minimal.csv'
+
 segments_for_each_test_case = []
 
 def read_csv_file(test_file):
@@ -49,7 +47,7 @@ def read_txt_file(testfile):
     input_file = open(testfile,"r")  # open the text file
 
     for i in range(3):
-        next(input_file)  # skip first two lines
+        next(input_file)  # skip first three lines
     for line in input_file: #  reading from text file (line by line)
         test_cases_from_txt_file.append(list(line.strip().split(",")))
 
@@ -62,11 +60,9 @@ def read_txt_file(testfile):
     for tc in final_test_cases:
         temp_list = []
         for i, e in enumerate(tc):
-            print e
             if e == ' false ':
                 temp_list.append(i)
         output_false.append(temp_list)
-        print(temp_list)
     return output_false
     #print(output_false)
 
@@ -107,7 +103,7 @@ def generate_testcase(test_file):
     file_extension = os.path.splitext(test_file)
     image = cv2.imread('../VGG16/test_dataset/ILSVRC2017_test_00000008.JPEG')
     number_of_segments = 25
-    output_directory = '/Users/Jagan/Desktop/BEN_n25/Test_image_8/images/iteration1/'
+    output_directory = '/Users/Jagan/Desktop/BEN_n25/Test_image_8_revised/Images/core-derived/'
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
@@ -117,7 +113,6 @@ def generate_testcase(test_file):
     elif file_extension[1] == '.txt':
         segments_for_each_test_case = read_txt_file(test_file)
         file_name = 'BEN_test_case_'
-
 
 
     # apply segmentation to the source image
@@ -135,9 +130,7 @@ def generate_testcase(test_file):
         for segment_number in test_case:
             mask[segments == segment_number] = 255
             print(segment_number)
-        test_file_name = 'file_name' + str(test_counter) + '_n' + str(number_of_segments) + '.jpg'
-        # file_name = 'test_case_' + str(test_counter) + '_n' + str(number_of_segments) + '.jpg'
-        # output_file_destination = '/Users/Jagan/Desktop/XAI_Tool_Project/segment_size_25/test_images/core_dervied_minimal'+file_name
+        test_file_name = file_name + str(test_counter) + '_n' + str(number_of_segments) + '.jpg'
         output_file_destination = output_directory + test_file_name
         cv2.imwrite(output_file_destination, cv2.bitwise_and(image, image, mask=mask))
         # cv2.imshow(str(test_case), cv2.bitwise_and(image, image, mask=mask))
