@@ -98,20 +98,20 @@ def read_txt_file(testfile):
 #     print('end of test case', test_counter)
 #     test_counter = test_counter + 1
 
-def generate_testcase(test_file):
+def generate_testcase(test_File,output_Destination, source_Image):
 
-    file_extension = os.path.splitext(test_file)
-    image = cv2.imread('../VGG16/test_dataset/ILSVRC2017_test_00000008.JPEG')
+    file_extension = os.path.splitext(test_File)
+    image = cv2.imread(source_Image)
     number_of_segments = 25
-    output_directory = '/Users/Jagan/Desktop/BEN_n25/Test_image_8_revised/Images/core-derived/'
+    output_directory = output_Destination
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
     if file_extension[1] == '.csv':
-        segments_for_each_test_case = read_csv_file(test_file)
+        segments_for_each_test_case = read_csv_file(test_File)
         file_name = 'Original_t-way_'
     elif file_extension[1] == '.txt':
-        segments_for_each_test_case = read_txt_file(test_file)
+        segments_for_each_test_case = read_txt_file(test_File)
         file_name = 'BEN_test_case_'
 
 
@@ -130,8 +130,8 @@ def generate_testcase(test_file):
         for segment_number in test_case:
             mask[segments == segment_number] = 255
             print(segment_number)
-        test_file_name = file_name + str(test_counter) + '_n' + str(number_of_segments) + '.jpg'
-        output_file_destination = output_directory + test_file_name
+        test_File_name = file_name + str(test_counter) + '_n' + str(number_of_segments) + '.jpg'
+        output_file_destination = output_directory + test_File_name
         cv2.imwrite(output_file_destination, cv2.bitwise_and(image, image, mask=mask))
         # cv2.imshow(str(test_case), cv2.bitwise_and(image, image, mask=mask))
         # cv2.waitKey(0)
@@ -142,6 +142,9 @@ def generate_testcase(test_file):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--test_file', type=str)
+    parser.add_argument('--output_dir', type=str)
+    parser.add_argument('--image', type=str)
+
 
     args, unknown = parser.parse_known_args()
-    generate_testcase(args.test_file)
+    generate_testcase(args.test_file,args.output_dir,args.image)

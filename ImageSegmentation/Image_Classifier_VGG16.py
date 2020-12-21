@@ -62,14 +62,23 @@ def predict(img):
     prediction = str('%s,(%.2f%%)' % (label[1], label[2] * 100))
     return prediction
 
-def start_prediction(image_path, original_prediction):
+def start_prediction(image_path, original_prediction,file_name, output_path):
     test_images = []
+    #print image_path, original_prediction, output_path, file_name
     for root, sub_dirs, files in os.walk(image_path):
         for f in files:
             if '.jpg' in f or '.png' in f or '.JPEG' in f:
                 test_images.append(os.path.join(root, f))
 
     test_images = natsorted(test_images)
+    #print test_images
+
+    txt_filename =  str(file_name) + '_prediction' + '.txt'
+    #txt_filename = 'Rambo-' + str(file_type) + '_Group' + str(group_number) + '.txt'
+    save_console_output = str(output_path) + txt_filename
+    print save_console_output
+    sys.stdout = open(save_console_output, 'w')
+
     for image in test_images:
         predicted_label = predict(image).split(',')[0].strip()  # spliting the prediction output
         #print(original_prediction)
@@ -82,10 +91,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--image_location', type=str)
     parser.add_argument('--original_prediction', type=str)
-    #parser.add_argument('--file_type', type=str)  # {'Baseline', 'Individual_transformation','2-way'}
-    #parser.add_argument('--output_path', type=str)
+    parser.add_argument('--file_name', type=str)  # { name of the console output }
+    parser.add_argument('--output_path', type=str)
 
     args, unknown = parser.parse_known_args()
     #print 'Calling the VGG16 model now '
     #print args.image_location, #args.group, args.file_type, args.output_path
-    start_prediction(args.image_location, args.original_prediction) #, args.group, args.file_type, args.output_path)
+    start_prediction(args.image_location, args.original_prediction, args.file_name, args.output_path) #, args.group, args.file_type, args.output_path)
