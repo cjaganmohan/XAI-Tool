@@ -46,8 +46,8 @@ def generate_segments(imageLocation):
     #     cv2.waitKey(0)
 
     mask = np.zeros(image.shape[:2], dtype='uint8')
-    output_file_destination = '/Users/Jagan/Desktop/Image11_failure_inducing_combination_2.jpg'
-    masked_segments = [5, 11]
+    masked_segments = [7]
+    output_file_destination = '/Users/Jagan/Desktop/Image354_failure_inducing_combination_'+str(masked_segments)+'.jpg'
     for i in np.unique(segments):
         print i
         if i not in masked_segments:

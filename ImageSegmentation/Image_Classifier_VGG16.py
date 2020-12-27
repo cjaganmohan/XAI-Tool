@@ -76,7 +76,7 @@ def start_prediction(image_path, original_prediction,file_name, output_path):
     txt_filename =  str(file_name) + '_prediction' + '.txt'
     #txt_filename = 'Rambo-' + str(file_type) + '_Group' + str(group_number) + '.txt'
     save_console_output = str(output_path) + txt_filename
-    print save_console_output
+    print (save_console_output)
     sys.stdout = open(save_console_output, 'w')
 
     for image in test_images:

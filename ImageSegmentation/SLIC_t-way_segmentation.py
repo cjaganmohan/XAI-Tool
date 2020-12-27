@@ -98,7 +98,7 @@ def read_txt_file(testfile):
 #     print('end of test case', test_counter)
 #     test_counter = test_counter + 1
 
-def generate_testcase(test_File,output_Destination, source_Image):
+def generate_testcase(test_File,output_Destination,filename,source_Image):
 
     file_extension = os.path.splitext(test_File)
     image = cv2.imread(source_Image)
@@ -109,10 +109,10 @@ def generate_testcase(test_File,output_Destination, source_Image):
 
     if file_extension[1] == '.csv':
         segments_for_each_test_case = read_csv_file(test_File)
-        file_name = 'Original_t-way_'
+        file_name = filename+'_t-way_'
     elif file_extension[1] == '.txt':
         segments_for_each_test_case = read_txt_file(test_File)
-        file_name = 'BEN_test_case_'
+        file_name = filename+'_BEN_test_case_'
 
 
     # apply segmentation to the source image
@@ -143,8 +143,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--test_file', type=str)
     parser.add_argument('--output_dir', type=str)
+    parser.add_argument('--file_name', type=str)
     parser.add_argument('--image', type=str)
 
 
     args, unknown = parser.parse_known_args()
-    generate_testcase(args.test_file,args.output_dir,args.image)
+    generate_testcase(args.test_file,args.output_dir,args.file_name,args.image)
