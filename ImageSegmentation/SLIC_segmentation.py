@@ -46,8 +46,10 @@ def generate_segments(imageLocation):
     #     cv2.waitKey(0)
 
     mask = np.zeros(image.shape[:2], dtype='uint8')
-    masked_segments = [7]
-    output_file_destination = '/Users/Jagan/Desktop/Image354_failure_inducing_combination_'+str(masked_segments)+'.jpg'
+    #masked_segments = [0,1,2,4,5,6,7,8,9,10,11,12,13,14,15,17,18,19,21]
+    masked_segments = [1,4,5,6,7,8,9,10,11,12,13,17,18,21]
+    #masked_segments = [9,14]
+    output_file_destination = '/Users/Jagan/Desktop/Image4837_failure_inducing_combination_explainer_new'+str(masked_segments)+'.jpg'
     for i in np.unique(segments):
         print i
         if i not in masked_segments:
@@ -56,6 +58,7 @@ def generate_segments(imageLocation):
             cv2.imshow('Modified_Image', cv2.bitwise_and(image, image, mask=mask))
             cv2.waitKey(0)
     cv2.imwrite(output_file_destination, cv2.bitwise_and(image, image, mask=mask))
+
 
 
 if __name__ == '__main__':

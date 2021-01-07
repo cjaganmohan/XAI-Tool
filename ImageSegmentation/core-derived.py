@@ -9,7 +9,7 @@ from skimage.util import img_as_float
 
 #from collections import OrderedDict
 
-failure_inducing_combo = 'S_2=false, S_11=true, S_13=true'
+failure_inducing_combo = 'S_3=true, S_15=true'
 failure_inducing_combo.replace(" ","")
 segments_list = failure_inducing_combo.strip(' ').split(", ")
 
@@ -26,7 +26,7 @@ for segment in segments_list:
     failure_inducing_combinations [segId] = [masking]
 
 
-print (failure_inducing_combinations ['S_2'])
+#print (failure_inducing_combinations ['S_2'])
 #print failure_inducing_combinations ['S_3']
 
 for inducing_segment in failure_inducing_combinations:
@@ -96,7 +96,7 @@ def generate_core_derived(testfile):
     # print( "   -      -----------------------        -")
     # for item in core_and_derived_members:
     #     print item
-    coreDerived = '/Users/Jagan/Desktop/BEN_n25/Test_image_11/core-derived.txt'
+    coreDerived = '/Users/Jagan/Desktop/BEN_n25/Test_image_1950/core-derived.txt'
     f = open(coreDerived, 'w')
     f.write("Phase II ")
     f.write("\n")
@@ -145,4 +145,11 @@ def generate_core_derived(testfile):
     # #         ])
     # #identify_core(temp_csv_file)
 
-generate_core_derived('/Users/Jagan/Desktop/BEN_n25/Test_image_11/ntc_iteration2.txt')
+#generate_core_derived(testFile)
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--test_file', type=str)
+
+    args, unknown = parser.parse_known_args()
+    generate_core_derived(args.test_file)

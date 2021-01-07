@@ -20,9 +20,6 @@ def updateTestFile(updateFile, result):
     result_file.close()
 
     f = open(updateFile,'a+')
-    #test_results = ["pass","pass","pass","pass","pass","pass","pass","pass","pass","pass"]
-    #test_results = ["fail", "fail", "fail", "fail", "fail", "fail", "fail", "fail", "fail", "fail"]
-    #test_results = ["fail", "fail", "pass", "pass", "fail", "fail", "pass", "pass", "fail", "fail"]
     f.write("\n")
     f.write("Results")
     f.write("\n")

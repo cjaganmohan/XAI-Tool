@@ -56,7 +56,16 @@ def predict(img):
 
     # print the prediction
     label = decode_predictions(yhat)
+
+    print label
+    templabel=[]
+    for i in range(5):
+        tempLabel = label[0][i]
+        print('%s (%.2f%%)' % (tempLabel[1], tempLabel[2] * 100))
+
     label = label[0][0]
+
+
     #print('%s (%.2f%%)' % (label[1], label[2] * 100))
     #prediction = str(label[1]) + ', '+str(round(label[2]*100,2))
     prediction = str('%s,(%.2f%%)' % (label[1], label[2] * 100))
